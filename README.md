@@ -1,4 +1,4 @@
-Für alle wahren Udo U. Fans. DIe App gibt den Ton von Udo's livestream wieder wenn er live ist, und Udo's ungewaschener Mund bewegt sich.
+Für alle wahren Udo U. Fans. DIe App gibt den Ton von Udo's livestream wieder wenn er live ist, und Udo's Mund bewegt sich.
 Es können auch andere Stream's von twitch, Kick, YT, TikTok wiedergegeben werden.
 Das Gif kann auch getauscht werden, wenn euch Udo nicht gefällt.
 Unter Optionen kann man Streamer hinzufügen, entfernen. Unten alles beschrieben.
