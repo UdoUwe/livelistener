@@ -32,8 +32,8 @@ Unterstützte Plattformen: **Kick, Twitch, YouTube, TikTok** (über [streamlink]
 ### Automatisch (Ubuntu/Debian, Arch, Fedora)
 
 ```bash
-git clone [https://github.com/DEIN-NAME/live-stream-listener.git](https://github.com/UdoUwe/livelistener)
-cd live-stream-listener
+git clone https://github.com/UdoUwe/livelistener
+cd livelistener
 bash install.sh
 ```
 
@@ -100,8 +100,8 @@ streamlink angepasst wurde. Besonders YouTube und TikTok sind weniger zuverläss
 ## Deinstallieren
 
 ```bash
-rm -rf ~/.local/share/live-stream-listener ~/.config/live-stream-listener
-rm -f ~/.local/bin/live-stream-listener ~/.local/share/applications/live-stream-listener.desktop
+rm -rf ~/.local/share/live-stream-listener ~/.config/livelistener
+rm -f ~/.local/bin/live-stream-listener ~/.local/share/applications/livelistener.desktop
 ```
 
 ## Lizenz
