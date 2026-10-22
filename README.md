@@ -32,7 +32,7 @@ Unterstützte Plattformen: **Kick, Twitch, YouTube, TikTok** (über [streamlink]
 ### Automatisch (Ubuntu/Debian, Arch, Fedora)
 
 ```bash
-git clone https://github.com/DEIN-NAME/live-stream-listener.git
+git clone [https://github.com/DEIN-NAME/live-stream-listener.git](https://github.com/UdoUwe/livelistener)
 cd live-stream-listener
 bash install.sh
 ```
