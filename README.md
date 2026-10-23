@@ -43,7 +43,7 @@ Der Installer erledigt das alles automatisch.
 ## Installation
 
 ```bash
-git clone https://github.com/DEIN-NAME/livelistener.git
+git clone https://github.com/UdoUwe/livelistener
 cd livelistener
 ./install.sh
 ```
