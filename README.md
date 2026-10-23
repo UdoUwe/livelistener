@@ -1,5 +1,7 @@
 <h1 align="center">U.D.O livelistener</h1>
 
+Der U.D.O listener für alle Udo Fans. Sobald Udo live geht wird die Audio aus seinem Steam abgespielt. Und der Mund von Udo bewegt sich. Alles cuckcoding, davorsetzen und zuschauen. Anständige Beschreibung unten. 
+
 <p align="center">
 <img width="424" height="768" alt="UdoDemo" src="https://github.com/user-attachments/assets/b625f2a2-2905-423d-9eed-35e6a406b57b" />
 
