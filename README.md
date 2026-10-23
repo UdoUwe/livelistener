@@ -23,8 +23,6 @@ Der U.D.O listener für alle Udo Fans. Sobald Udo live geht wird die Audio aus s
 - **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
 - **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
 - **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
-- **GIF-Größe** einstellbar: 200, 150, 125, 100, 75, 50 oder 25 %. Bei 100 % passt das GIF in ein Feld von 300×244 Pixeln
-- **Große Monitore (4K):** Die GIF-Größe lässt sich bis 200 % stellen. Für ein scharfes Bild bei großer Anzeige lohnt sich ein GIF mit mehr Pixeln
 - **Steuerung** direkt unter dem GIF: Lautstärke, Pause/Play, Stumm, Stream im Browser öffnen, Optionen
 - **Audio-Ausgabe** frei wählbar (PipeWire/PulseAudio)
 - **Dark Mode**
