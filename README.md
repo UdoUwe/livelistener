@@ -4,7 +4,7 @@ Der U.D.O listener für alle Udo Fans. Sobald ein Streamer live geht wird die Au
 Das Standard-GIF ist KI-generiert und stellt keine Person aus dem realen Leben dar.
 
 <p align="center">
-<img width="424" height="768" alt="UdoDemo" src="https://github.com/user-attachments/assets/b625f2a2-2905-423d-9eed-35e6a406b57b" />
+<img width="434" height="680" alt="Udodemo3" src="https://github.com/user-attachments/assets/55d30b96-0e4b-4552-8095-40efb5715464" />
 
 
 
