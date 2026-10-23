@@ -1,0 +1,105 @@
+<p align="center">
+  <img src="assets/livelistener.png" width="128" alt="livelistener Icon">
+</p>
+
+<h1 align="center">livelistener</h1>
+
+<p align="center">
+  Überwacht deine Lieblings-Streamer und spielt <b>nur den Ton</b> ab, sobald jemand live ist.<br>
+  Kick · Twitch · YouTube · TikTok
+</p>
+
+---
+
+## Funktionen
+
+- **Mehrere Plattformen:** Kick, Twitch, YouTube und TikTok in einer Liste
+- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
+- **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
+- **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 450×450 Pixel, mindestens 2 Bilder)
+- **GIF-Größe** einstellbar: 100 %, 75 %, 50 % oder 25 %
+- **Steuerung** direkt unter dem GIF: Lautstärke, Stopp, Stumm, Stream im Browser öffnen, Optionen
+- **Audio-Ausgabe** frei wählbar (PipeWire/PulseAudio)
+- **Dark Mode**
+- **Tray-Icon:** Die App läuft im Hintergrund weiter, `Strg+Q` beendet sie
+- **streamlink-Update** per Knopfdruck (wenn über pipx installiert)
+
+## Voraussetzungen
+
+- Linux mit PipeWire oder PulseAudio
+- Python 3.8 oder neuer
+- [mpv](https://mpv.io/) (Wiedergabe)
+- [streamlink](https://streamlink.github.io/) (Stream-Erkennung)
+- PyQt5 (Oberfläche)
+- `pactl` und `pkill` (meist vorinstalliert)
+
+Der Installer erledigt das alles automatisch.
+
+## Installation
+
+```bash
+git clone https://github.com/DEIN-NAME/livelistener.git
+cd livelistener
+./install.sh
+```
+
+Der Installer unterstützt `apt` (Debian, Ubuntu, Mint), `dnf` (Fedora), `pacman` (Arch) und `zypper` (openSUSE). Er
+
+1. installiert fehlende Systempakete (dafür wird `sudo` gefragt),
+2. installiert `streamlink` per `pipx`,
+3. richtet die App samt eigener Python-Umgebung unter `~/.local/share/livelistener` ein,
+4. legt den Startbefehl `livelistener` und einen Eintrag im Anwendungsmenü an.
+
+Optionen:
+
+| Befehl | Wirkung |
+| --- | --- |
+| `./install.sh --no-deps` | keine Systempakete installieren (wenn du mpv, pipx usw. schon hast) |
+| `./install.sh --uninstall` | App wieder entfernen (Einstellungen bleiben erhalten) |
+
+Nach der Installation startest du livelistener über das Anwendungsmenü oder mit `livelistener`.
+
+### Manuell starten (ohne Installer)
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+pipx install streamlink          # und mpv über den Paketmanager installieren
+.venv/bin/python livelistener.py
+```
+
+## Benutzung
+
+1. Fahre mit der Maus über das Fenster und klicke auf das Zahnrad, um die **Optionen** zu öffnen.
+2. Füge einen Streamer hinzu und klicke auf **Folgen**:
+
+   | Plattform | Eingabe |
+   | --- | --- |
+   | Kick | Link oder nur der Name, z. B. `name` |
+   | Twitch | Link oder `twitch:name` |
+   | YouTube | Link oder `@handle` |
+   | TikTok | Link oder `tiktok:@name` |
+
+3. Lass **Automatisch abspielen** aktiviert. Sobald ein Streamer aus deiner Liste live ist, startet der Ton.
+4. Doppelklick auf einen Eintrag spielt ihn sofort ab.
+
+Der Knopf **Stopp** beendet den laufenden Stream. Die automatische Wiedergabe bleibt an, startet denselben Streamer aber erst wieder, wenn er zwischendurch offline war.
+
+## Einstellungen
+
+Alle Einstellungen werden automatisch in `~/.config/livelistener/config.json` gespeichert. Ein eigenes GIF wird dort als `custom.gif` kopiert, das Original darf also gelöscht werden.
+
+## Fehlerbehebung
+
+- **Kein Tray-Icon unter GNOME:** GNOME zeigt Tray-Icons nur mit der Erweiterung *AppIndicator and KStatusNotifierItem Support*.
+- **„streamlink nicht gefunden“ / kein Ton:** Prüfe im Terminal `streamlink --version` und `mpv --version`. Bei streamlink muss `~/.local/bin` im `PATH` sein (`pipx ensurepath`, danach neu anmelden).
+- **Kein Streamer wird als live erkannt:** Teste im Terminal `streamlink --stream-url https://kick.com/NAME audio_only,worst`. Hilft ein Update, nutze den Knopf *streamlink aktualisieren* in den Optionen oder `pipx upgrade streamlink`.
+- **Falsches Audiogerät:** Wähle in den Optionen unter *Audio-Ausgabe* das gewünschte Gerät.
+
+## Hinweis
+
+livelistener ist ein inoffizielles Hilfsprogramm und steht in keiner Verbindung zu Kick, Twitch, YouTube, TikTok, streamlink oder mpv.
+
+## Lizenz
+
+Noch nicht festgelegt. Füge vor der Veröffentlichung eine `LICENSE`-Datei hinzu (z. B. MIT) und trage sie hier ein.
