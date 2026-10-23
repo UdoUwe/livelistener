@@ -20,7 +20,7 @@ Der U.D.O listener für alle Udo Fans. Sobald Udo live geht wird die Audio aus s
 ## Funktionen
 
 - **Mehrere Plattformen:** Kick, Twitch, YouTube und TikTok in einer Liste
-- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, startet der oberste in der Liste
+- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
 - **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
 - **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
 - **Steuerung** direkt unter dem GIF: Lautstärke, Pause/Play, Stumm, Stream im Browser öffnen, Optionen
@@ -43,7 +43,7 @@ Der Installer erledigt das alles automatisch.
 ## Installation
 
 ```bash
-git clone https://github.com/UdoUwe/livelistener
+git clone https://github.com/UdoUwe/livelistener.git
 cd livelistener
 ./install.sh
 ```
@@ -72,6 +72,19 @@ python3 -m venv .venv
 pipx install streamlink          # und mpv über den Paketmanager installieren
 .venv/bin/python livelistener.py
 ```
+
+## Deinstallation
+
+```bash
+cd livelistener
+./install.sh --uninstall
+```
+
+Das entfernt die App (`~/.local/share/livelistener`), den Startbefehl `livelistener`, den Menüeintrag und das Icon. Nicht entfernt werden:
+
+- **Deine Einstellungen** in `~/.config/livelistener`. Zum Löschen: `rm -rf ~/.config/livelistener`
+- **streamlink:** `pipx uninstall streamlink`
+- **Systempakete** wie mpv und pipx: über deinen Paketmanager, z. B. `sudo apt remove mpv pipx`
 
 ## Benutzung
 
