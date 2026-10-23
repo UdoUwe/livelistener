@@ -14,6 +14,7 @@ Der U.D.O listener für alle Udo Fans. Sobald Udo live geht wird die Audio aus s
   Kick · Twitch · YouTube · TikTok
 </p>
 
+
 ---
 
 ## Funktionen
@@ -21,13 +22,14 @@ Der U.D.O listener für alle Udo Fans. Sobald Udo live geht wird die Audio aus s
 - **Mehrere Plattformen:** Kick, Twitch, YouTube und TikTok in einer Liste
 - **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
 - **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
-- **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 450×450 Pixel, mindestens 2 Bilder)
-- **GIF-Größe** einstellbar: 100 %, 75 %, 50 % oder 25 %
-- **Steuerung** direkt unter dem GIF: Lautstärke, Stopp, Stumm, Stream im Browser öffnen, Optionen
+- **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
+- **GIF-Größe** einstellbar: 200, 150, 125, 100, 75, 50 oder 25 %. Bei 100 % passt das GIF in ein Feld von 300×244 Pixeln
+- **Große Monitore (4K):** Die GIF-Größe lässt sich bis 200 % stellen. Für ein scharfes Bild bei großer Anzeige lohnt sich ein GIF mit mehr Pixeln
+- **Steuerung** direkt unter dem GIF: Lautstärke, Pause/Play, Stumm, Stream im Browser öffnen, Optionen
 - **Audio-Ausgabe** frei wählbar (PipeWire/PulseAudio)
 - **Dark Mode**
+- **Automatisches streamlink-Update** bei jedem Start im Hintergrund (wenn über pipx installiert)
 - **Tray-Icon:** Die App läuft im Hintergrund weiter, `Strg+Q` beendet sie
-- **streamlink-Update** per Knopfdruck (wenn über pipx installiert)
 
 ## Voraussetzungen
 
@@ -88,7 +90,7 @@ pipx install streamlink          # und mpv über den Paketmanager installieren
 3. Lass **Automatisch abspielen** aktiviert. Sobald ein Streamer aus deiner Liste live ist, startet der Ton.
 4. Doppelklick auf einen Eintrag spielt ihn sofort ab.
 
-Der Knopf **Stopp** beendet den laufenden Stream. Die automatische Wiedergabe bleibt an, startet denselben Streamer aber erst wieder, wenn er zwischendurch offline war.
+Der Knopf **Pause/Play** pausiert den laufenden Stream, ein zweiter Klick spielt ihn wieder ab. Die automatische Wiedergabe bleibt an, startet den pausierten Streamer aber erst wieder, wenn er zwischendurch offline war.
 
 ## Einstellungen
 
@@ -98,6 +100,6 @@ Alle Einstellungen werden automatisch in `~/.config/livelistener/config.json` ge
 
 - **Kein Tray-Icon unter GNOME:** GNOME zeigt Tray-Icons nur mit der Erweiterung *AppIndicator and KStatusNotifierItem Support*.
 - **„streamlink nicht gefunden“ / kein Ton:** Prüfe im Terminal `streamlink --version` und `mpv --version`. Bei streamlink muss `~/.local/bin` im `PATH` sein (`pipx ensurepath`, danach neu anmelden).
-- **Kein Streamer wird als live erkannt:** Teste im Terminal `streamlink --stream-url https://kick.com/NAME audio_only,worst`. Hilft ein Update, nutze den Knopf *streamlink aktualisieren* in den Optionen oder `pipx upgrade streamlink`.
+- **Kein Streamer wird als live erkannt:** Teste im Terminal `streamlink --stream-url https://kick.com/NAME audio_only,worst`. streamlink wird bei jedem Start der App automatisch aktualisiert (nur bei Installation über pipx). Du kannst es auch manuell mit `pipx upgrade streamlink` aktualisieren.
 - **Falsches Audiogerät:** Wähle in den Optionen unter *Audio-Ausgabe* das gewünschte Gerät.
 
