@@ -1,0 +1,3 @@
+# Python-Abhängigkeiten von livelistener
+# (streamlink und mpv sind eigenständige Programme und werden von install.sh eingerichtet)
+PyQt5>=5.15
