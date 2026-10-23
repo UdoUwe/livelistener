@@ -101,10 +101,3 @@ Alle Einstellungen werden automatisch in `~/.config/livelistener/config.json` ge
 - **Kein Streamer wird als live erkannt:** Teste im Terminal `streamlink --stream-url https://kick.com/NAME audio_only,worst`. Hilft ein Update, nutze den Knopf *streamlink aktualisieren* in den Optionen oder `pipx upgrade streamlink`.
 - **Falsches Audiogerät:** Wähle in den Optionen unter *Audio-Ausgabe* das gewünschte Gerät.
 
-## Hinweis
-
-livelistener ist ein inoffizielles Hilfsprogramm und steht in keiner Verbindung zu Kick, Twitch, YouTube, TikTok, streamlink oder mpv.
-
-## Lizenz
-
-Noch nicht festgelegt. Füge vor der Veröffentlichung eine `LICENSE`-Datei hinzu (z. B. MIT) und trage sie hier ein.
