@@ -21,7 +21,7 @@ Der U.D.O.-Listener für alle Udo-Fans. Sobald ein Streamer live geht, wird die 
 ## Funktionen
 
 - **Mehrere Plattformen:** Kick, Twitch, YouTube und TikTok in einer Liste
-- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton         abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
+- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton         abgespielt (kein Video, wenig Last). Sind mehrere live, wird der oberste in der Liste abgespielt
 - **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
 - **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
 - **Große Monitore (4K):** Die GIF-Größe lässt sich bis 200 % stellen. Für ein scharfes Bild bei großer Anzeige lohnt sich ein GIF mit mehr Pixeln
