@@ -21,12 +21,10 @@ Das Standard-GIF ist KI-generiert und stellt keine Person aus dem realen Leben d
 ## Funktionen
 
 - **Mehrere Plattformen:** Kick, Twitch, YouTube und TikTok in einer Liste
-- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird 
-    nur der Ton abgespielt (kein Video, wenig Last). Sind mehrere live, wird der oberste in der Liste 
-    abgespielt.
+- **Automatische Wiedergabe:** Alle 30 Sekunden wird geprüft, wer live ist. Läuft ein Streamer, wird nur der Ton         abgespielt (kein Video, wenig Last). Sind mehrere live, gewinnt der oberste in der Liste
 - **Sortieren per Drag & Drop:** Die Reihenfolge der Liste legt die Priorität fest
-- **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel 
-    überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
+- **Animiertes GIF** im Fenster, das sich bewegt, sobald der Ton einen einstellbaren Pegel überschreitet. Eigenes GIF wählbar (max. 1024×1024 Pixel)
+- **Große Monitore (4K):** Die GIF-Größe lässt sich bis 200 % stellen. Für ein scharfes Bild bei großer Anzeige lohnt sich ein GIF mit mehr Pixeln
 - **Steuerung** direkt unter dem GIF: Lautstärke, Pause/Play, Stumm, Stream im Browser öffnen, Optionen
 - **Audio-Ausgabe** frei wählbar (PipeWire/PulseAudio)
 - **Dark Mode**
@@ -35,21 +33,21 @@ Das Standard-GIF ist KI-generiert und stellt keine Person aus dem realen Leben d
 
 ## Voraussetzungen
 
-- Linux mit PipeWire oder PulseAudio
+- Linux mit PipeWire oder PulseAudio, oder Windows 10/11 (siehe [Windows](#windows))
 - Python 3.8 oder neuer
 - [mpv](https://mpv.io/) (Wiedergabe)
 - [streamlink](https://streamlink.github.io/) (Stream-Erkennung)
 - PyQt5 (Oberfläche)
 - `pactl` und `pkill` (meist vorinstalliert)
 
-Der Installer erledigt das alles automatisch.
+Der Installer erledigt das.
 
-## Installation
+## Installation (Linux)
 
 ```bash
 git clone https://github.com/UdoUwe/livelistener.git
 cd livelistener
-./install.sh
+bash install.sh
 ```
 
 Der Installer unterstützt `apt` (Debian, Ubuntu, Mint), `dnf` (Fedora), `pacman` (Arch) und `zypper` (openSUSE). Er
@@ -63,10 +61,10 @@ Optionen:
 
 | Befehl | Wirkung |
 | --- | --- |
-| `./install.sh --no-deps` | keine Systempakete installieren (wenn du mpv, pipx usw. schon hast) |
-| `./install.sh --uninstall` | App wieder entfernen (Einstellungen bleiben erhalten) |
+| `bash install.sh --no-deps` | keine Systempakete installieren (wenn du mpv, pipx usw. schon hast) |
+| `bash install.sh --uninstall` | App wieder entfernen (Einstellungen bleiben erhalten) |
 
-Nach der Installation, livelistener über das Anwendungsmenü oder mit `livelistener` starten.
+Nach der Installation startest du livelistener über das Anwendungsmenü oder mit `livelistener`.
 
 ### Manuell starten (ohne Installer)
 
@@ -77,11 +75,23 @@ pipx install streamlink          # und mpv über den Paketmanager installieren
 .venv/bin/python livelistener.py
 ```
 
-## Deinstallation
+## Windows
+
+
+
+**Benutzen:**
+
+1. Lade die Datei `livelistener-windows.zip` herunter und entpacke sie.
+2. Starte `livelistener.exe`. 
+
+!!Windows SmartScreen kann vor der unsignierten `.exe` warnen („Weitere Informationen“ → „Trotzdem ausführen“).!!
+
+
+## Deinstallation (Linux)
 
 ```bash
 cd livelistener
-./install.sh --uninstall
+bash install.sh --uninstall
 ```
 
 Das entfernt die App (`~/.local/share/livelistener`), den Startbefehl `livelistener`, den Menüeintrag und das Icon. Nicht entfernt werden:
@@ -99,8 +109,10 @@ Das entfernt die App (`~/.local/share/livelistener`), den Startbefehl `liveliste
    | --- | --- |
    | Kick | Link oder nur der Name, z. B. `name` |
    | Twitch | Link oder `twitch:name` |
-   | YouTube | Link oder `@handle` |
+   | YouTube | Kanal-Link oder `@handle`, oder der Direktlink zu einem Livestream (z. B. `https://www.youtube.com/watch?v=…`) |
    | TikTok | Link oder `tiktok:@name` |
+
+   **YouTube mit mehreren Livestreams:** Läuft bei einem Kanal mehr als ein Livestream, spielt livelistener immer den ersten ab. Willst du einen anderen Stream desselben Kanals hören, füge den Direktlink zu diesem Stream als eigenen Eintrag hinzu.
 
 3. Lass **Automatisch abspielen** aktiviert. Sobald ein Streamer aus deiner Liste live ist, startet der Ton.
 4. Doppelklick auf einen Eintrag spielt ihn sofort ab.
@@ -116,5 +128,8 @@ Alle Einstellungen werden automatisch in `~/.config/livelistener/config.json` ge
 - **Kein Tray-Icon unter GNOME:** GNOME zeigt Tray-Icons nur mit der Erweiterung *AppIndicator and KStatusNotifierItem Support*.
 - **„streamlink nicht gefunden“ / kein Ton:** Prüfe im Terminal `streamlink --version` und `mpv --version`. Bei streamlink muss `~/.local/bin` im `PATH` sein (`pipx ensurepath`, danach neu anmelden).
 - **Kein Streamer wird als live erkannt:** Teste im Terminal `streamlink --stream-url https://kick.com/NAME audio_only,worst`. streamlink wird bei jedem Start der App automatisch aktualisiert (nur bei Installation über pipx). Du kannst es auch manuell mit `pipx upgrade streamlink` aktualisieren.
+- **YouTube: „This plugin does not support protected videos“:** Dein streamlink ist zu alt. Aktuelle Versionen brauchen Python 3.10 oder neuer; bei älterem Python (z. B. Ubuntu 20.04 mit Python 3.8) bleibt pipx bei einer alten Version hängen. Der Installer nutzt dann `uv`, das sich ein eigenes Python holt, und die App hält streamlink beim Start aktuell. Manuell: `curl -LsSf https://astral.sh/uv/install.sh | sh`, dann `pipx uninstall streamlink` und `uv tool install --python 3.12 streamlink`. Mit `streamlink --version` prüfst du das Ergebnis.
+- **Windows: kein Ton / Streamer wird nicht erkannt:** Prüfe, ob die Ordner `mpv` und `streamlink` neben `livelistener.exe` liegen, und starte in der Eingabeaufforderung `streamlink\\bin\\streamlink.exe --version`. Beim Start meldet die App fehlende Programme.
 - **Falsches Audiogerät:** Wähle in den Optionen unter *Audio-Ausgabe* das gewünschte Gerät.
+
 
