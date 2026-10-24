@@ -1,0 +1,119 @@
+name: Windows-Build
+
+# Baut livelistener.exe auf einem Windows-Rechner von GitHub.
+#  - Von Hand starten:  Actions → "Windows-Build" → "Run workflow"
+#  - Automatisch mit Release: Tag "v1.0.0" pushen (das ZIP landet dann bei den Releases)
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write  # nötig, um beim Tag ein Release anzulegen
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Abhängigkeiten installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Syntax prüfen
+        run: python -m py_compile livelistener.py
+
+      - name: Programm bauen (PyInstaller)
+        run: >
+          pyinstaller --noconfirm --clean --windowed
+          --name livelistener
+          --icon assets/livelistener.ico
+          livelistener.py
+
+      - name: mpv und streamlink einpacken
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Force bundle | Out-Null
+
+          # Sucht in der neuesten Version eines Repos die passende Datei und lädt sie herunter
+          function Get-Asset($repo, $regex) {
+            $names = gh release view --repo $repo --json assets --jq ".assets[].name"
+            $hit = $names | Where-Object { $_ -match $regex } | Select-Object -First 1
+            if (-not $hit) { throw "Kein passendes Archiv in $repo gefunden. Vorhanden: $($names -join ', ')" }
+            gh release download --repo $repo --pattern $hit --dir bundle --clobber | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw "Download von $hit fehlgeschlagen" }
+            return $hit
+          }
+
+          # mpv (Windows-Build von shinchiro, normale x86_64-Version)
+          $mpvArchive = Get-Asset "shinchiro/mpv-winbuild-cmake" '^mpv-x86_64-\d{8}-git-.+\.7z$'
+          $sevenZip = (Get-Command 7z -ErrorAction SilentlyContinue)?.Source ?? "$env:ProgramFiles\7-Zip\7z.exe"
+          & $sevenZip x "bundle/$mpvArchive" -obundle/mpv-extract -y | Out-Null
+          $mpvExe = Get-ChildItem bundle/mpv-extract -Recurse -Filter mpv.exe | Select-Object -First 1
+          if (-not $mpvExe) { throw "mpv.exe nicht im Archiv gefunden" }
+          Copy-Item $mpvExe.Directory.FullName "dist/livelistener/mpv" -Recurse
+
+          # streamlink (portable Version)
+          $slArchive = Get-Asset "streamlink/windows-builds" '^streamlink-.+-x86_64\.zip$'
+          Expand-Archive "bundle/$slArchive" -DestinationPath bundle/streamlink-extract
+          $slExe = Get-ChildItem bundle/streamlink-extract -Recurse -Filter streamlink.exe | Select-Object -First 1
+          if (-not $slExe) { throw "streamlink.exe nicht im Archiv gefunden" }
+          $slRoot = if ($slExe.Directory.Name -eq "bin") { $slExe.Directory.Parent.FullName } else { $slExe.Directory.FullName }
+          Copy-Item $slRoot "dist/livelistener/streamlink" -Recurse
+
+          Copy-Item THIRD_PARTY.txt dist/livelistener/THIRD_PARTY.txt
+
+      - name: Eingepackte Programme prüfen
+        shell: pwsh
+        run: |
+          $mpv = Get-ChildItem dist/livelistener/mpv -Recurse -Filter mpv.exe | Select-Object -First 1
+          $sl = Get-ChildItem dist/livelistener/streamlink -Recurse -Filter streamlink.exe | Select-Object -First 1
+          & $mpv.FullName --version | Select-Object -First 1
+          & $sl.FullName --version
+          if ($LASTEXITCODE -ne 0) { throw "streamlink läuft nicht" }
+          "Größe des Ordners: {0:N0} MB" -f ((Get-ChildItem dist/livelistener -Recurse -File | Measure-Object Length -Sum).Sum / 1MB)
+
+      - name: Startest (Smoke-Test)
+        continue-on-error: true  # ein Fehler hier bricht den Build nicht ab, wird aber als Warnung angezeigt
+        shell: pwsh
+        run: |
+          $result = Join-Path $env:TEMP "livelistener-selftest.txt"
+          Remove-Item $result -ErrorAction SilentlyContinue
+          $p = Start-Process -FilePath "dist/livelistener/livelistener.exe" -ArgumentList "--selftest" -PassThru
+          if (-not $p.WaitForExit(90000)) { $p.Kill(); throw "Zeitüberschreitung beim Startest" }
+          if (-not (Test-Path $result)) { throw "Kein Ergebnis: Die App wurde nicht korrekt gestartet (Exit-Code $($p.ExitCode))" }
+          Get-Content $result
+          if ((Get-Content $result -Raw) -notmatch "^OK") { throw "Startest fehlgeschlagen" }
+          if ((Get-Content $result -Raw) -notmatch "fehlende Programme: keine") { throw "Die App findet mpv/streamlink im Ordner nicht" }
+
+      - name: ZIP erstellen
+        shell: pwsh
+        run: |
+          Copy-Item README.md dist/livelistener/README.md
+          Compress-Archive -Path dist/livelistener -DestinationPath livelistener-windows.zip
+
+      - name: ZIP als Download bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: livelistener-windows
+          path: livelistener-windows.zip
+
+      - name: Release anlegen (nur bei Tags)
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" livelistener-windows.zip --title "livelistener ${{ github.ref_name }}" --generate-notes
