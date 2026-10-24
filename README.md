@@ -1,6 +1,6 @@
 <h1 align="center">U.D.O livelistener</h1>
 
-Der U.D.O listener für alle Udo Fans. Sobald ein Streamer live geht wird die Audio aus seinem Steam abgespielt. Und der Mund von Udo bewegt sich. Alles cuckcoding, davorsetzen und zuschauen. Anständige Beschreibung unten. 
+Der U.D.O listener für alle Udo Fans. Sobald ein Streamer live geht wird die Audio aus seinem Steam abgespielt. Und der Mund von Udo bewegt sich. Alles cuckcoding, davorsetzen und zuschauen. 
 Das Standard-GIF ist KI-generiert und stellt keine Person aus dem realen Leben dar.
 
 <p align="center">
