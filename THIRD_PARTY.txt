@@ -1,0 +1,17 @@
+Im Windows-Download von livelistener sind zusätzlich diese Programme enthalten.
+Sie gehören nicht zu livelistener, sondern haben ihre eigenen Lizenzen.
+
+mpv (Ordner "mpv")
+  Videoplayer, spielt hier nur den Ton ab.
+  Lizenz: GPL bzw. LGPL (je nach Build, siehe die Lizenzdateien im Ordner "mpv")
+  Quellcode:    https://github.com/mpv-player/mpv
+  Windows-Build (Build-Skripte und Quellen): https://github.com/shinchiro/mpv-winbuild-cmake
+
+streamlink (Ordner "streamlink")
+  Findet und öffnet Livestreams. Portable Windows-Version mit eigenem Python und FFmpeg.
+  Lizenz: BSD 2-Clause (FFmpeg und weitere Bestandteile haben eigene Lizenzen)
+  Quellcode:    https://github.com/streamlink/streamlink
+  Windows-Build: https://github.com/streamlink/windows-builds
+
+Beim Start prüft livelistener, ob es ein neueres streamlink gibt, und lädt es
+nach %LOCALAPPDATA%\livelistener\streamlink. Diese Kopie wird dann bevorzugt.
