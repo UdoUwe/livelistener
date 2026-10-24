@@ -84,7 +84,7 @@ pipx install streamlink          # und mpv über den Paketmanager installieren
 1. Lade die Datei `livelistener-windows.zip` herunter und entpacke sie.
 2. Starte `livelistener.exe`. 
 
-!!Windows SmartScreen kann vor der unsignierten `.exe` warnen („Weitere Informationen“ → „Trotzdem ausführen“).!!
+Windows SmartScreen kann vor der unsignierten `.exe` warnen („Weitere Informationen“ → „Trotzdem ausführen“).
 
 
 ## Deinstallation (Linux)
