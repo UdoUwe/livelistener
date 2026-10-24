@@ -66,7 +66,7 @@ Optionen:
 | `./install.sh --no-deps` | keine Systempakete installieren (wenn du mpv, pipx usw. schon hast) |
 | `./install.sh --uninstall` | App wieder entfernen (Einstellungen bleiben erhalten) |
 
-Nach der Installation startest du livelistener über das Anwendungsmenü oder mit `livelistener`.
+Nach der Installation, livelistener über das Anwendungsmenü oder mit `livelistener` starten.
 
 ### Manuell starten (ohne Installer)
 
